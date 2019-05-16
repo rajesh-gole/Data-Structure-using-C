@@ -1,0 +1,183 @@
+#include <stdio.h>
+#include<malloc.h>
+struct node
+{
+    int data;
+    struct node* next;
+};
+typedef struct node NODE;
+NODE* head=NULL;
+void ins_beg();
+void ins_end();
+void del_any_val();
+void count();
+void search();
+void display();
+
+main()
+{
+    int ch;
+    char c;
+    do
+    {
+        printf("\n MENU \n1. Insert at the Beginning\n2. Insert at the end\n3. Delete any Value \n4. Count element \n5. Search element \n6. Display\n");
+        printf("Enter your choice\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1: ins_beg();
+                    break;
+            case 2: ins_end();
+                    break;
+            case 3: del_any_val();
+                    break;
+            case 4: count();
+                    break;
+            case 5: search();
+                    break;
+            case 6: display();
+                    break;
+            default: printf("Invalid Choice!");
+        }
+        fflush(stdin);
+        printf("\nDo you want to continue?\n");
+        scanf("%c",&c);
+    }
+    while(c=='Y'||c=='y');
+}
+void ins_beg()
+{
+    NODE* p;
+    p=(NODE*)malloc(sizeof(NODE));
+    printf("Enter the Data\n");
+    scanf("%d",&p->data);
+    if(head==NULL)
+    {
+        head=p;
+        head->next=NULL;
+    }
+    else
+    {
+        p->next=head;
+        head=p;
+    }
+}
+
+void ins_end()
+{
+    NODE* p,*q;
+    p=(NODE*)malloc(sizeof(NODE));
+    printf("Enter the Data\n");
+    scanf("%d",&p->data);
+    if(head==NULL)
+    {
+        head=p;
+        head->next=NULL;
+    }
+    else
+    {
+        q=head;
+        while(q->next!=NULL)
+        {
+            q=q->next;
+        }
+        q->next=p;
+        p->next=NULL;
+    }
+}
+
+void del_any_val()
+{
+    NODE* p=head,*q;
+    int key;
+    if(head==NULL)
+    {
+        printf("Empty List\n");
+    }
+    else
+    {
+        printf("Enter the Value you want to delete:\n");
+        scanf("%d",&key);
+        if(head->next==NULL && head->data==key)
+        {
+            printf("Deleted data is %d ",head->data);
+            head=NULL;
+        }
+        else
+        {
+            q=p;
+            while(p->next!=NULL && p->data!=key)
+            {
+                q=p;
+                p=p->next;
+            }
+            if(p->data==key && p->next!=NULL)
+            {
+                q->next=p->next;
+                p->next=NULL;
+                printf("Deleted data is %d",p->data);
+            }
+            else if(p->data==key && p->next==NULL)
+            {
+                q->next=NULL;
+                printf("Deleted data is %d",p->data);
+            }
+            else
+
+                printf("Data does not exist");
+
+        }
+    }
+}
+
+void count()
+{
+    int i=0;
+    NODE* p=head;
+    if(head==NULL)
+        printf("Empty List");
+    else
+    {
+        while(p!=NULL)
+        {
+            i++;
+            p=p->next;
+        }
+    }
+    printf("No of Nodes are: %d",i);
+}
+
+void search()
+{
+    int key;
+    int flag=0;
+    NODE *p=head;
+    printf("Enter the data you want to search\n");
+    scanf("%d",&key);
+    while(p->data!=key)
+    {
+        p=p->next;
+    }
+    flag=1;
+    if(flag==1)
+        printf("Value %d is found",key);
+    else
+        printf("Value %d not found",key);
+}
+
+void display()
+{
+    NODE *p=head;
+    if(head==NULL)
+        printf("Empty List");
+    else
+    {
+        printf("The List is: \n");
+        while(p!=NULL)
+        {
+            printf(" %d ",p->data );
+            p=p->next;
+        }
+        printf("NULL");
+    }
+}
