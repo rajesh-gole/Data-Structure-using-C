@@ -1,0 +1,119 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node* next;
+};
+typedef struct node NODE;
+NODE* head=NULL;
+
+void push();
+void pop();
+void display();
+
+main()
+{
+    int s[30],i,max,ch,top=-1;
+    char c;
+    printf("Enter the max size:");
+    scanf("%d",&max);
+    do
+    {
+        printf("\n 1. Insert \n");
+        printf("\n 2. Delete \n");
+        printf("\n 3. Display \n");
+        printf("\n 4. Exit \n");
+        printf("Enter your choice:");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1: if(top==max-1)
+                       printf("Stack Overflow.");
+                    else
+                    {
+                        top++;
+                        push();
+                    }
+                    break;
+            case 2: if(top==-1)
+                    printf("Stack Underflow");
+                    else
+                    {
+                        pop();
+                        top--;
+                    }
+                    break;
+            case 3:if(top==-1)
+                    printf("Stack Underflow");
+                    else
+                    {
+                        display();
+                    }
+                    break;
+            default: printf("Wrong Choice!");
+        }
+        fflush(stdin);
+        printf("\n Do you want to continue?\n");
+        scanf("%c",&c);
+    }
+    while(c=='Y'||c=='y');
+}
+void push()
+{
+    NODE *p;
+    p=(NODE*)malloc(sizeof(NODE));
+    printf("Enter the data:\n");
+    scanf("%d",&p->data);
+    if(head==NULL)
+    {
+        head=p;
+        head->next=NULL;
+    }
+    else
+    {
+        p->next=head;
+        head=p;
+    }
+}
+
+void pop()
+{
+    NODE *p;
+    if(head==NULL)
+    {
+        printf("Empty List");
+    }
+    else
+    {
+        p=head;
+        if(head->next==NULL)
+            head=NULL;
+        else
+        {
+            head=head->next;
+            p->next=NULL;
+        }
+    printf("Deleted item is %d",p->data);
+   }
+}
+void display()
+{
+    NODE* p;
+    if(head==NULL)
+    {
+        printf("Empty List");
+    }
+    else
+    {
+        p=head;
+        printf("The List is: \n");
+        while(p!=NULL)// problem when inserting p->next!=NULL;
+        {
+            printf("%d \n",p->data);
+            p=p->next;
+        }
+
+    }
+}
