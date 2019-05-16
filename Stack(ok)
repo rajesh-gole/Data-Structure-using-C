@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void push(int*,int);
+void pop(int*);
+void display(int*);
+int top=-1;
+
+main()
+{
+    int s[30],i,max,ch;
+    char c;
+    printf("Enter the maximum size\n");
+    scanf("%d",&max);
+
+    do
+    {
+        printf("\n 1. Insert \n");
+        printf("\n 2. Delete \n");
+        printf("\n 3. Display \n");
+        printf("\n 4. Exit \n");
+        printf("Enter your Choice:\n");
+        scanf("%d", &ch);
+        switch(ch)
+        {
+            case 1: push(s,max);
+                    break;
+            case 2:pop(s);
+                   break;
+            case 3:display(s);
+                   break;
+            case 4:exit(1);
+            default:"Wrong Choice";
+
+        }
+        fflush(stdin);
+        printf("Do you want to continue?\n");
+        scanf("%c", &c);
+
+    }
+    while(c=='Y'||c=='y');
+}
+void push(int*s,int max)
+{
+    if(top==max-1)
+        printf("Stack is Overflow");
+    else
+    {
+        top++;
+        printf("Enter the value\n");
+        scanf("%d",&s[top]);
+    }
+}
+void pop(int*s)
+{
+    int x;
+    if(top==-1)
+        printf("Stack is Empty");
+    else
+    {
+        x=s[top];
+        top--;
+        printf("Deleted item is: %d \n", x);
+    }
+}
+void display(int*s)
+{
+    int i;
+    if(top==-1)
+        printf("Stack is Empty");
+    else
+    {
+      printf("Values in the stack is:");
+      for(i=top;i>=0;i--)
+            printf("\n%d\n",s[i]);
+    }
+}
