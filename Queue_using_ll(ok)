@@ -1,0 +1,137 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node* next;
+};
+typedef struct node NODE;
+NODE* head=NULL;
+
+void enque();
+void deque();
+void display();
+
+main()
+{
+    int q[100],i,max,ch,front=-1,rear=-1;
+    char c;
+    printf("Enter the max size:");
+    scanf("%d",&max);
+    do
+    {
+        printf("\n 1. Insert \n");
+        printf("\n 2. Delete \n");
+        printf("\n 3. Display \n");
+        printf("\n 4. Exit \n");
+        printf("Enter your choice:");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1: if(rear==max-1)
+                      printf("Queue is Full");
+                    else
+                    {
+                    rear++;
+                     if(rear==0)
+                        front=0;
+                        enque();
+                    }
+                break;
+            case 2: if(rear==-1 && front==-1)
+                      printf("Queue is Empty");
+                    else
+                    {
+                        deque();
+                        if(rear==front)
+                        {
+                            front=-1;
+                            rear=-1;
+                        }
+                        else
+                            front++;
+                    }
+                    break;
+            case 3: if(rear==-1 && front==-1)
+                      printf("Queue is Empty");
+                    else
+                      display();
+                    break;
+            case 4: exit(1);
+                    break;
+            default: printf("Wrong Choice!");break;
+        }
+        fflush(stdin);
+        printf("\n Do you want to Continue?\n");
+        scanf("%c",&c);
+    }
+    while(c=='Y'||c=='y');
+}
+
+
+void enque()
+{
+    NODE *p,*q;
+    p=(NODE*)malloc(sizeof(NODE));
+    printf("Enter the data:\n");
+    scanf("%d",&p->data);
+    if(head==NULL)
+    {
+        head=p;
+        head->next=NULL;
+        //printf("Inserted data is %d", head->data);
+    }
+    else
+    {
+        q=head;
+        while(q->next!=NULL)
+        {
+            q=q->next;
+        }
+        q->next=p;
+        p->next=NULL;
+        //printf("Inserted data is : %d", p->data);
+    }
+}
+
+void deque()
+{
+    NODE* p=head;
+    int key;
+    if(head==NULL)
+       {
+        printf("Empty List");
+       }
+    else
+    {
+        if(head->data==key && head->next==NULL)
+         {
+          printf("Deleted data is %d",head->data);
+          head=NULL;
+          }
+         else
+         {
+           if(p->data==head->data && head->next!=NULL)
+        head=head->next;
+        p->next=NULL;
+        printf("Deleted data is %d",p->data);
+        }
+    }
+}
+
+void display()
+{
+    NODE* p=head;
+    if(head==NULL)
+        printf("Empty List");
+    else
+    {
+        printf("The List is:\n");
+        while(p!=NULL)
+        {
+            printf("%d  ",p->data);
+            p=p->next;
+        }
+    }
+}
